@@ -62,6 +62,16 @@ function backToList(obj){
 	     form.submit();
 	 
 	 }
+	 
+	 function readURL(input) {
+	     if (input.files && input.files[0]) {
+	         var reader = new FileReader();
+	         reader.onload = function (e) {
+	             $('#preview').attr('src', e.target.result);
+	         }
+	         reader.readAsDataURL(input.files[0]);
+	     }
+	 }  
 </script>
 <meta charset="UTF-8">
 <title>글보기</title>
@@ -96,8 +106,29 @@ function backToList(obj){
 					<textarea rows="20" cols="60" name="content" id="i_content" disabled>${article.content}</textarea>
 				</td>
 			</tr>
+			
+			<c:if test="${not empty imageFileList && imageFileList!='null' }">
+	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+			      이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    </td>
+			 </tr>
+		</c:forEach>
+ </c:if>
+			
 			<c:choose> 
 	  <c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
+	  		
 	   	<tr>
 		    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
 		      이미지
