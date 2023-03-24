@@ -13,6 +13,6 @@ public interface BoardController {
 	public ModelAndView listArticles(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public ModelAndView viewArticle(int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception;
-//	public ResponseEntity modArticle(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity modArticle(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity removeArticle(int articleNO ,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

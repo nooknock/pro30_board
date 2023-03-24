@@ -24,6 +24,8 @@ public class BoardDAOImpl implements BoardDAO{
 		return articlesList;
 	}
 	
+
+	//다중 이미지 추가하기
 	@Override
 	public int insertNewArticle(Map articleMap) throws DataAccessException {
 		int articleNO = selectNewArticleNO();
@@ -43,6 +45,7 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne("mapper.board.selectArticle",articleNO);
 	}
 
+	
 	@Override
 	public void updateArticle(Map articleMap) throws Exception {
 		sqlSession.update("mapper.board.updateArticle", articleMap);
@@ -59,6 +62,7 @@ public class BoardDAOImpl implements BoardDAO{
 	public void insertNewImage(Map articleMap) throws Exception{
 		
 		List<ImageVO> imageFileList=(ArrayList)articleMap.get("imageFileList");
+		System.out.println("삽입 넘버"+articleMap.get("articleNO"));
 		int articleNO=(Integer)articleMap.get("articleNO");
 		int imageFileNO=selectNewImageFileNO();
 		for(ImageVO imageVO : imageFileList){
@@ -67,6 +71,22 @@ public class BoardDAOImpl implements BoardDAO{
 		}
 		
 		sqlSession.insert("mapper.board.insertNewImage",imageFileList);
+		
+	}
+	
+	@Override
+	public void updateNewImage(Map articleMap) throws Exception{
+		
+		List<ImageVO> imageFileList=(ArrayList)articleMap.get("imageFileList");
+		System.out.println("타입"+articleMap.get("articleNO").getClass().getName());
+		int articleNO=(Integer)articleMap.get("articleNO");
+		int imageFileNO=(Integer) articleMap.get("imageFileNO");
+		for(ImageVO imageVO : imageFileList){
+			imageVO.setImageFileNO(imageFileNO);
+			imageVO.setArticleNO(articleNO);
+		}
+		
+		sqlSession.insert("mapper.board.updateNewImage",imageFileList);
 		
 	}
 

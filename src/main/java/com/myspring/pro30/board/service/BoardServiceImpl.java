@@ -55,6 +55,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void modArticle(Map articleMap) throws Exception {
+		boardDAO.updateNewImage(articleMap);
 		boardDAO.updateArticle(articleMap);
 
 	}
@@ -71,8 +72,11 @@ public class BoardServiceImpl implements BoardService {
 		Map articleMap = new HashMap();
 		ArticleVO articleVO = boardDAO.selectArticle(articleNO);
 		List<ImageVO> imageFileList = boardDAO.selectImageFileList(articleNO);
+		ImageVO tt=new ImageVO();
 		articleMap.put("article", articleVO);
+		System.out.println("서비스에서"+articleVO.getContent());
 		articleMap.put("imageFileList", imageFileList);
+		System.out.println("서비스에서"+tt.getImageFileName());
 		return articleMap;
 		
 	}

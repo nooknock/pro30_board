@@ -17,5 +17,6 @@ public interface BoardDAO {
 	public void deleteArticle(int articleNO) throws Exception;
 	public void insertNewImage(Map articleMap) throws Exception;
 	public List selectImageFileList(int articleNO) throws Exception;
+	public void updateNewImage(Map articleMap) throws Exception;
 	
 }

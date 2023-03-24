@@ -50,15 +50,21 @@
 		]]>
 	</select>
 	
+	<update id="updateNewImage"  parameterType="java.util.Map">
+    <foreach item="item"  collection="list"   open="update" 
+                  separator=" " >
+      t_imageFile set imageFileNO=#{item.imageFileNO}, imageFileName=#{item.imageFileName},
+      where articleNO=#{item.articleNO}
+    </foreach>
+  </update>
+	
 	<update id="updateArticle"  parameterType="java.util.Map">
 			
 			update t_board
 			set title=#{title},	 
 			content=#{content}
 			
-			<if test="imageFileName!='' and imageFileName!=null">
-			  , imageFileName=#{imageFileName}
-			</if>
+			
 			where articleNO=#{articleNO}
 			
 	</update>
